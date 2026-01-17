@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --text-primary: #000533;
+  --text-secondary: #3e415c;
+}
+
+/* When the .dark class is added to <html>, these take over */
+.dark {
+  --background: #171717;
+  --text-primary: #d5d8f0;
+  --text-secondary: #9ba4eb;
+}
+
+/* Apply default colors globally */
+body {
+  @apply bg-background text-primary transition-colors duration-300;
+}

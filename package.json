@@ -1,0 +1,32 @@
+{
+  "name": "simple-nuxt-starter",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "typecheck": "nuxt typecheck"
+  },
+  "devDependencies": {
+    "@iconify-json/material-symbols": "^1.2.51",
+    "@nuxt/eslint": "1.12.1",
+    "@nuxt/icon": "2.2.0",
+    "@nuxtjs/color-mode": "^4.0.0",
+    "@nuxtjs/tailwindcss": "^6.14.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "eslint": "^9.39.2",
+    "nuxt": "^4.2.2",
+    "prettier": "^3.8.0",
+    "typescript": "^5.9.3",
+    "vue-router": "^4.6.4",
+    "vue": "^3.5.26"
+  }
+}

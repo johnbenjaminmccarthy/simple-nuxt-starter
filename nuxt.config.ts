@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: false,
   app: {
-    baseURL: "/playground/simple-nuxt-starter/",
+    baseURL: "/",
     head: {
       title: "Nuxt Minimal Starter",
       meta: [{ name: "description", content: "Nuxt Minimal Starter" }],

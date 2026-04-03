@@ -1,4 +1,5 @@
-import withNuxt from "./.nuxt/eslint.config.mjs";
-import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
+import prettier from "eslint-config-prettier";
 
-export default withNuxt([eslintPluginPrettierRecommended]);
+import withNuxt from "./.nuxt/eslint.config.mjs";
+
+export default withNuxt([prettier]);

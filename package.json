@@ -15,13 +15,13 @@
     "typecheck": "nuxt typecheck"
   },
   "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@iconify-json/material-symbols": "^1.2.51",
     "@nuxt/eslint": "1.12.1",
     "@nuxt/icon": "2.2.0",
     "@nuxtjs/color-mode": "^4.0.0",
     "@nuxtjs/tailwindcss": "^6.14.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.5",
     "eslint": "^9.39.2",
     "nuxt": "^4.2.2",
     "prettier": "^3.8.0",

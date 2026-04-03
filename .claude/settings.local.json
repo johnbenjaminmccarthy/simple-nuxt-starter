@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm build)",
+      "Bash(pnpm dev)",
+      "Bash(pnpm generate)",
+      "Bash(pnpm preview)",
+      "Bash(pnpm lint)",
+      "Bash(pnpm lint:fix)",
+      "Bash(pnpm format)",
+      "Bash(pnpm format:fix)",
+      "Bash(pnpm typecheck)",
+      "Bash(pnpm test)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm check)",
+      "Bash(pnpm install)",
+      "Bash(pnpm add *)",
+      "Bash(pnpm remove *)",
+      "Bash(nuxt prepare)"
+    ]
+  }
+}

@@ -1,3 +1,5 @@
+import tailwindcss from "@tailwindcss/vite";
+
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
@@ -9,13 +11,8 @@ export default defineNuxtConfig({
       meta: [{ name: "description", content: "Nuxt Minimal Starter" }],
     },
   },
-  modules: [
-    "@nuxtjs/color-mode",
-    "@nuxtjs/tailwindcss",
-    "@nuxt/test-utils/module",
-    "@nuxt/icon",
-    "@nuxt/eslint",
-  ],
+  modules: ["@nuxtjs/color-mode", "@nuxt/test-utils/module", "@nuxt/icon", "@nuxt/eslint"],
+  vite: { plugins: [tailwindcss()] },
   css: ["~/assets/css/main.css"],
   typescript: {
     strict: true,
@@ -37,19 +34,6 @@ export default defineNuxtConfig({
   colorMode: {
     preference: "system",
     fallback: "light",
-  },
-  tailwindcss: {
-    config: {
-      theme: {
-        extend: {
-          colors: {
-            background: "var(--background)",
-            primary: "var(--text-primary)",
-            secondary: "var(--text-secondary)",
-          },
-        },
-      },
-    },
   },
   eslint: {
     config: {

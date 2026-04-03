@@ -1,6 +1,14 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/* Match @nuxtjs/color-mode (.dark on <html>), not prefers-color-scheme */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Maps design tokens to Tailwind color utilities (bg-background, text-primary, …) */
+@theme {
+  --color-background: var(--background);
+  --color-primary: var(--text-primary);
+  --color-secondary: var(--text-secondary);
+}
 
 :root {
   --background: #ffffff;

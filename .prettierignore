@@ -1,0 +1,8 @@
+dist/
+build/
+node_modules/
+.nuxt/
+.output/
+
+pnpm-lock.yaml
+package-lock.json

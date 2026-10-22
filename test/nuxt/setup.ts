@@ -13,13 +13,17 @@
 // noise without affecting any real test behaviour.
 
 if (typeof window !== "undefined") {
-  (window as unknown as Record<string, unknown>)["__NUXT_COLOR_MODE__"] = {
-    preference: "system",
-    value: "light",
-    getColorScheme: () => "light",
-    addColorScheme: () => {},
-    removeColorScheme: () => {},
-  };
+  Object.defineProperty(window, "__NUXT_COLOR_MODE__", {
+    configurable: true,
+    writable: true,
+    value: {
+      preference: "system",
+      value: "light",
+      getColorScheme: () => "light",
+      addColorScheme: () => {},
+      removeColorScheme: () => {},
+    },
+  });
 }
 
 // Vue 3 emits this via console.info the first time a Suspense boundary is
@@ -30,10 +34,10 @@ if (typeof window !== "undefined") {
 // suppress it, but it restores the original before tests run — so the patch
 // is gone by the time the first Suspense is actually mounted. This setup file
 // runs after the environment restore and re-applies the suppression.
-const _consoleInfo = console.info;
-console.info = (...args: unknown[]) => {
+const originalConsoleInfo = console.info;
+console.info = (...args: readonly unknown[]) => {
   if (args[0] === "<Suspense> is an experimental feature and its API will likely change.") {
     return;
   }
-  return _consoleInfo(...args);
+  originalConsoleInfo(...args);
 };

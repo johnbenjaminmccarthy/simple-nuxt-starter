@@ -1,5 +1,7 @@
 import { mountSuspended } from "@nuxt/test-utils/runtime";
 import { beforeEach, describe, expect, it } from "vitest";
+import { nextTick } from "vue";
+
 import ColourModeToggle from "~/components/ColourModeToggle.vue";
 
 describe("ColourModeToggle", () => {
@@ -10,7 +12,7 @@ describe("ColourModeToggle", () => {
     useColorMode().preference = "system";
   });
 
-  it("defaults to system preference which falls back to light", async () => {
+  it("defaults to system preference which falls back to light", () => {
     const colorMode = useColorMode();
 
     expect(colorMode.preference).toBe("system");
@@ -50,7 +52,7 @@ describe("ColourModeToggle", () => {
     const colorMode = useColorMode();
 
     colorMode.preference = "light";
-    await wrapper.vm.$nextTick();
+    await nextTick();
 
     expect(wrapper.find("button").attributes("aria-label")).toBe("Switch to dark mode");
 
@@ -65,7 +67,7 @@ describe("ColourModeToggle", () => {
     const colorMode = useColorMode();
 
     colorMode.preference = "dark";
-    await wrapper.vm.$nextTick();
+    await nextTick();
 
     expect(wrapper.find("button").attributes("aria-label")).toBe("Switch to light mode");
 

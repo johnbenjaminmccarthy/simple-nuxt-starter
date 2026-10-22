@@ -10,16 +10,19 @@ pnpm dev              # Start dev server
 pnpm build            # Production build
 pnpm generate         # Static site generation
 pnpm preview          # Preview production build
-pnpm lint:fix         # Lint and autofix
-pnpm format:fix       # Format with Prettier
-pnpm typecheck        # TypeScript type checking
+pnpm lint             # oxlint (type-aware) + ESLint on .vue files
+pnpm lint:fix         # Same, with autofix
+pnpm format           # oxfmt check
+pnpm format:fix       # oxfmt write
+pnpm typecheck        # Golar (TypeScript 7 engine) over Nuxt's generated project references
 pnpm test             # Run all tests
 pnpm test:unit        # Unit tests only (Node.js env)
 pnpm test:nuxt        # Component tests (Nuxt env with happy-dom)
-pnpm check            # Full check: lint + format + typecheck + test
+pnpm check            # Full check: lint + format check + typecheck + test
+pnpm check:fix        # Full check with lint/format autofix
 ```
 
-Run `pnpm check` before committing.
+Run `pnpm check` (or `pnpm check:fix`) before committing. Requires Node 24+ and pnpm 12+.
 
 ## Project Structure
 
@@ -34,25 +37,47 @@ test/
   nuxt/                # Component tests (Nuxt runtime)
 public/                # Static assets served at /
 nuxt.config.ts         # Nuxt configuration
+golar.config.ts        # Golar type checker (registers @golar/vue)
+oxlint.config.ts       # oxlint rules
+oxfmt.config.ts        # oxfmt formatting (import sorting)
+eslint.config.ts       # ESLint, scoped to .vue files (eslint-plugin-vue)
 vitest.config.ts       # Test runner configuration
 ```
 
 ## Modules
 
-- **@nuxtjs/tailwindcss** - Utility-first CSS. Theme colors (`background`, `primary`, `secondary`)
-  are mapped to CSS variables in `main.css`.
+- **@tailwindcss/vite** - Tailwind v4 via the Vite plugin. Theme colors (`background`, `primary`,
+  `secondary`) are mapped to CSS variables in `main.css`.
 - **@nuxtjs/color-mode** - Dark/light mode. Uses system preference with light fallback. Toggle via
   `useColorMode()`.
 - **@nuxt/icon** - Icons via `<Icon>` component. Uses `@iconify-json/material-symbols` icon set.
-- **@nuxt/eslint** - Linting with strict TypeScript rules.
+
+## Tooling
+
+- **TypeScript 7**: the native `tsc` is installed as `@typescript/native`; the `typescript`
+  package name is aliased to `@typescript/typescript6` because `@typescript-eslint/parser` and the
+  Vue VS Code extension still need the TypeScript 6 JS API. Do not "fix" this by installing plain
+  `typescript@7` under its own name - ESLint will stop working on `.vue` files. Type checking
+  (`pnpm typecheck`) runs `nuxt typecheck --checker golar`; `vue-tsc` is not installed and
+  `typescript.typeCheck` in `nuxt.config.ts` must stay off.
+- **oxlint** (`oxlint.config.ts`) is category-based: correctness/suspicious/perf are errors,
+  pedantic is warnings, style is deliberately off. Type-aware rules run via `oxlint-tsgolint`
+  (`--type-aware`); they only see `.ts` files, so types imported from `.vue` files are `error`
+  typed there. Prefer adjusting category levels over adding individual rules.
+- **ESLint** (`eslint.config.ts`) runs only on `.vue` files with `eslint-plugin-vue`'s recommended
+  rules minus layout rules (formatting is oxfmt's job). Do not add JS/TS rules to ESLint; they
+  belong in oxlint.
+- **oxfmt** (`oxfmt.config.ts`) uses built-in Prettier-compatible defaults plus import sorting
+  (type imports first, then builtin/external/internal/relative groups) and `package.json` key
+  sorting. `.vue` files are formatted through oxfmt's embedded Prettier.
+- **pnpm**: `pnpm-workspace.yaml` sets `minimumReleaseAge` (2 days), so a just-published version
+  may be refused; pick the previous one. Build scripts are opt-in via `allowBuilds`.
 
 ## Code Style
 
-- Prettier: double quotes, 100 char line width, trailing commas
-- Import sorting handled by `@trivago/prettier-plugin-sort-imports`
-- ESLint extends Prettier config to avoid conflicts. Always run lint:fix first and then format:fix,
-  to avoid having to re-format linted code.
-- TypeScript strict mode enabled
+- oxfmt defaults: double quotes, semicolons, 100 char line width, trailing commas
+- Config files follow `const config: SomeConfigType = {...}; export default config;`
+- TypeScript strict mode plus the extra strictness flags in `nuxt.config.ts`
 
 ## Testing
 

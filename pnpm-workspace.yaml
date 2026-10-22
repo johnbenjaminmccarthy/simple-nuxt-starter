@@ -1,1 +1,5 @@
 minimumReleaseAge: 2880
+trustLockfile: true
+allowBuilds:
+  esbuild: true
+  unrs-resolver: true

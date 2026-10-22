@@ -1,0 +1,22 @@
+{
+  // oxfmt formats everything (JS/TS, Vue, CSS, JSON, Markdown, YAML) via the oxc extension.
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "editor.codeActionsOnSave": {
+    // oxlint autofixes first, then eslint-plugin-vue autofixes (Vue files only).
+    "source.fixAll.oxc": "explicit",
+    "source.fixAll.eslint": "explicit"
+  },
+  // ESLint is only configured for .vue files (see eslint.config.ts).
+  "eslint.validate": ["vue"],
+  // Do not enable `typescript.experimental.useTsgo` here: the Vue extension runs as a tsserver
+  // plugin and needs the TypeScript 6 JS API, which `node_modules/typescript` provides.
+  "[typescript]": { "editor.defaultFormatter": "oxc.oxc-vscode" },
+  "[javascript]": { "editor.defaultFormatter": "oxc.oxc-vscode" },
+  "[vue]": { "editor.defaultFormatter": "oxc.oxc-vscode" },
+  "[json]": { "editor.defaultFormatter": "oxc.oxc-vscode" },
+  "[jsonc]": { "editor.defaultFormatter": "oxc.oxc-vscode" },
+  "[css]": { "editor.defaultFormatter": "oxc.oxc-vscode" },
+  "[markdown]": { "editor.defaultFormatter": "oxc.oxc-vscode" },
+  "[yaml]": { "editor.defaultFormatter": "oxc.oxc-vscode" }
+}

@@ -1,7 +1,7 @@
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
-  compatibilityDate: "2025-07-15",
+  compatibilityDate: "2026-10-23",
   devtools: { enabled: true },
   ssr: false,
   app: {
@@ -11,12 +11,15 @@ export default defineNuxtConfig({
       meta: [{ name: "description", content: "Nuxt Minimal Starter" }],
     },
   },
-  modules: ["@nuxtjs/color-mode", "@nuxt/test-utils/module", "@nuxt/icon", "@nuxt/eslint"],
+  modules: ["@nuxtjs/color-mode", "@nuxt/test-utils/module", "@nuxt/icon"],
   vite: { plugins: [tailwindcss()] },
   css: ["~/assets/css/main.css"],
   typescript: {
     strict: true,
-    typeCheck: true,
+    // Build-time type checking (vite-plugin-checker) requires vue-tsc, which needs the
+    // TypeScript 6 JS API. Type checking runs with Golar (TypeScript 7 engine) via
+    // `pnpm typecheck` instead.
+    typeCheck: false,
     tsConfig: {
       compilerOptions: {
         noEmit: true,
@@ -34,12 +37,5 @@ export default defineNuxtConfig({
   colorMode: {
     preference: "system",
     fallback: "light",
-  },
-  eslint: {
-    config: {
-      typescript: {
-        strict: true,
-      },
-    },
   },
 });
